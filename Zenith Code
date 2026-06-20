@@ -1,0 +1,1647 @@
+
+
+cat > /mnt/user-data/outputs/zenith-printing.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zenith Printing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#09090f;
+  --bg2:#0d1117;
+  --bg3:#111827;
+  --bg4:#1a2235;
+  --cyan:#00c8a0;
+  --cyan2:#00e5b4;
+  --red:#e53935;
+  --red2:#ff5252;
+  --white:#ffffff;
+  --gray:#8892a4;
+  --gray2:#b0bac9;
+  --border:#1e2d45;
+  --border2:#243047;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:56px;
+  background:rgba(9,9,15,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.nav-left{display:flex;align-items:center;gap:1.5rem;}
+.nav-toc{
+  display:flex;align-items:center;gap:0.5rem;
+  border:1px solid var(--border2);
+  padding:0.35rem 0.75rem;
+  font-family:'Space Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.08em;
+  color:var(--white);cursor:pointer;
+  background:transparent;
+  transition:border-color .2s;
+}
+.nav-toc:hover{border-color:var(--cyan);}
+.nav-brand{
+  font-family:'Space Mono',monospace;
+  font-size:0.75rem;letter-spacing:0.15em;
+  color:var(--white);cursor:pointer;
+}
+.nav-right{display:flex;align-items:center;gap:2rem;}
+.nav-link{
+  font-family:'Space Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.1em;
+  color:var(--gray2);text-decoration:none;cursor:pointer;
+  transition:color .2s;
+  display:flex;align-items:center;gap:0.4rem;
+}
+.nav-link:hover,.nav-link.active{color:var(--white);}
+.nav-link.red-outline{
+  border:1px solid var(--red);color:var(--red);
+  padding:0.3rem 0.75rem;
+}
+.nav-link.red-outline:hover{background:var(--red);color:var(--white);}
+.nav-link.cyan-color{color:var(--cyan);}
+
+/* PAGES */
+.page{display:none;min-height:100vh;padding-top:56px;}
+.page.active{display:block;}
+
+/* ===== HOME ===== */
+.hero{
+  position:relative;
+  min-height:calc(100vh - 56px);
+  display:grid;grid-template-columns:1fr 420px;
+  align-items:center;
+  padding:0 4rem;gap:2rem;
+  overflow:hidden;
+}
+.hero-bg-shape{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at 65% 50%, rgba(0,100,80,0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-bg-img{
+  position:absolute;right:0;top:0;bottom:0;width:55%;
+  background:
+    radial-gradient(ellipse 60% 70% at 60% 45%, rgba(0,180,140,0.06) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='700'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='45%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%2300c8a0' stop-opacity='0.07'/%3E%3Cstop offset='100%25' stop-color='%2300c8a0' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx='300' cy='320' rx='220' ry='260' fill='url(%23g)'/%3E%3C/svg%3E") center/contain no-repeat;
+  pointer-events:none;
+  display:flex;align-items:center;justify-content:center;
+}
+/* 3d shape placeholder */
+.hero-3d{
+  position:absolute;right:6%;top:50%;transform:translateY(-50%);
+  width:340px;height:340px;
+  background:radial-gradient(ellipse at center, rgba(0,140,110,0.12) 0%, transparent 70%);
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.hero-3d svg{width:280px;height:280px;opacity:0.18;}
+.hero-content{position:relative;z-index:2;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  border:1px solid var(--border2);
+  padding:0.4rem 0.875rem;
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.12em;
+  color:var(--gray2);margin-bottom:1.5rem;
+}
+.hero-badge span{color:var(--cyan);font-size:1rem;}
+.hero-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(5rem,10vw,9rem);
+  font-weight:900;line-height:0.9;
+  letter-spacing:-0.02em;
+  color:var(--white);
+  margin-bottom:1.5rem;
+}
+.hero-sub{
+  font-size:1rem;color:var(--gray2);
+  line-height:1.6;max-width:500px;
+  margin-bottom:2rem;
+}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-cyan{
+  background:var(--cyan);color:#001a14;
+  border:none;padding:0.75rem 1.75rem;
+  font-family:'Space Mono',monospace;font-weight:700;font-size:0.7rem;
+  letter-spacing:0.1em;cursor:pointer;transition:opacity .2s;
+  display:inline-flex;align-items:center;gap:0.5rem;
+}
+.btn-cyan:hover{opacity:0.85;}
+.btn-outline{
+  background:transparent;color:var(--white);
+  border:1px solid var(--border2);
+  padding:0.75rem 1.75rem;
+  font-family:'Space Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.1em;cursor:pointer;transition:all .2s;
+}
+.btn-outline:hover{border-color:var(--white);}
+.btn-red{
+  background:var(--red);color:var(--white);
+  border:none;padding:0.75rem 1.75rem;
+  font-family:'Space Mono',monospace;font-weight:700;font-size:0.7rem;
+  letter-spacing:0.1em;cursor:pointer;transition:opacity .2s;
+  display:inline-flex;align-items:center;gap:0.5rem;width:100%;
+  justify-content:center;
+}
+.btn-red:hover{opacity:0.88;}
+
+/* upload card on hero */
+.hero-upload-card{
+  position:relative;z-index:2;
+  background:var(--bg3);
+  border:1px solid var(--border2);
+  padding:2rem;
+}
+.card-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.14em;
+  color:var(--cyan);margin-bottom:1rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.card-eyebrow svg{width:16px;height:16px;}
+.upload-drop{
+  border:2px dashed var(--border2);
+  padding:2rem;text-align:center;
+  cursor:pointer;transition:border-color .2s;
+  position:relative;
+}
+.upload-drop:hover,.upload-drop.dragover{border-color:var(--cyan);}
+.upload-drop input[type=file]{
+  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+}
+.upload-drop-icon{color:var(--cyan);margin-bottom:0.75rem;}
+.upload-drop h3{font-size:1.125rem;font-weight:700;margin-bottom:0.375rem;}
+.upload-drop p{font-size:0.8125rem;color:var(--gray);}
+.hero-stats{
+  display:flex;gap:2rem;margin-top:1.5rem;padding-top:1.5rem;
+  border-top:1px solid var(--border);
+}
+.h-stat{text-align:center;flex:1;}
+.h-stat-num{
+  font-family:'Space Mono',monospace;
+  font-size:0.9rem;font-weight:700;color:var(--cyan);
+}
+.h-stat-label{font-size:0.7rem;color:var(--gray);margin-top:0.2rem;}
+
+/* sections */
+.section{padding:5rem 4rem;}
+.section-sm{padding:3rem 4rem;}
+.eyebrow{
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.16em;color:var(--cyan);
+  margin-bottom:1rem;
+}
+.eyebrow.red{color:var(--red);}
+.section-h{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3rem,6vw,5.5rem);
+  font-weight:900;letter-spacing:-0.02em;
+  line-height:0.95;color:var(--white);
+}
+
+/* MATERIALS SECTION */
+.materials-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+  margin-top:3rem;
+}
+.mat-card{
+  background:var(--bg2);padding:0;
+  position:relative;overflow:hidden;
+  cursor:pointer;transition:background .2s;
+}
+.mat-card:hover{background:var(--bg3);}
+.mat-img{
+  width:100%;aspect-ratio:4/3;
+  background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.mat-img-inner{
+  width:100%;height:100%;
+  object-fit:cover;
+  background:linear-gradient(135deg,#0d1a2a,#1a2a3a);
+  display:flex;align-items:center;justify-content:center;
+  font-size:5rem;
+}
+.mat-badge{
+  position:absolute;top:0.75rem;left:0.75rem;
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.1em;padding:0.3rem 0.6rem;font-weight:700;
+}
+.badge-stock{background:var(--cyan);color:#001a14;}
+.badge-out{background:var(--red);color:var(--white);display:flex;align-items:center;gap:0.3rem;}
+.mat-body{padding:1.25rem 1.5rem 1.5rem;}
+.mat-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.625rem;font-weight:800;
+  color:var(--white);margin-bottom:0.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.mat-name svg{color:var(--red);width:20px;height:20px;opacity:0.7;}
+.mat-desc{font-size:0.875rem;color:var(--gray2);line-height:1.55;margin-bottom:0.875rem;}
+.mat-tags{
+  font-family:'Space Mono',monospace;font-size:0.68rem;
+  color:var(--gray);letter-spacing:0.05em;
+}
+
+/* CATALOG */
+.catalog-header{padding:3rem 4rem 0;}
+.cat-filters{
+  display:flex;gap:0;
+  border-bottom:1px solid var(--border);
+  margin-top:2rem;
+}
+.cat-filter{
+  font-family:'Space Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.1em;padding:0.875rem 1.5rem;
+  color:var(--gray);background:transparent;border:none;cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:all .2s;
+}
+.cat-filter.active{color:var(--red);border-bottom-color:var(--red);}
+.cat-filter:hover:not(.active){color:var(--white);}
+.catalog-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border-left:1px solid var(--border);
+  border-right:1px solid var(--border);
+}
+.cat-card{
+  background:var(--bg2);
+  cursor:pointer;transition:background .2s;
+  position:relative;overflow:hidden;
+}
+.cat-card:hover{background:var(--bg3);}
+.cat-img{
+  position:relative;aspect-ratio:1;
+  background:linear-gradient(135deg,var(--bg3),var(--bg4));
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.cat-img-emoji{font-size:4rem;}
+.cat-badge-pop{
+  position:absolute;top:0;left:0;
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.08em;padding:0.25rem 0.5rem;font-weight:700;
+}
+.badge-popular{background:var(--cyan);color:#001a14;}
+.badge-bestseller{background:var(--red);color:var(--white);}
+.badge-new{background:#1e3a5f;color:var(--cyan);}
+.cat-badge-cat{
+  position:absolute;top:0;right:0;
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.08em;padding:0.25rem 0.5rem;
+  background:rgba(13,17,23,0.85);color:var(--gray2);
+}
+.cat-body{padding:1rem 1.25rem 1.25rem;}
+.cat-sku{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--gray);margin-bottom:0.25rem;}
+.cat-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:0.25rem;}
+.cat-name{font-size:1.125rem;font-weight:700;color:var(--white);}
+.cat-price{font-size:1rem;font-weight:700;color:var(--red);}
+.cat-weight{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--gray);margin-bottom:0.5rem;}
+.cat-desc{font-size:0.8125rem;color:var(--gray2);line-height:1.5;margin-bottom:0.875rem;}
+.cat-meta{
+  display:flex;gap:1.5rem;
+  padding-top:0.75rem;border-top:1px solid var(--border);
+  font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--gray);
+}
+.cat-colors{margin-top:0.75rem;}
+.cat-colors-label{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--gray);margin-bottom:0.4rem;letter-spacing:0.08em;}
+.color-dots{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.color-dot{
+  width:20px;height:20px;border-radius:50%;cursor:pointer;
+  border:2px solid transparent;transition:border-color .15s;
+  position:relative;
+}
+.color-dot:hover{border-color:var(--white);}
+.color-dot.selected{border-color:var(--white);}
+.color-dot.out-of-stock::after{
+  content:'';position:absolute;inset:2px;
+  background:rgba(0,0,0,0.5);border-radius:50%;
+}
+.color-dot .dot-warn{
+  position:absolute;bottom:-2px;right:-2px;
+  width:10px;height:10px;
+  background:var(--red);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:7px;color:white;
+}
+.add-to-order-btn{
+  width:100%;margin-top:0.875rem;
+  background:var(--red);color:var(--white);
+  border:none;padding:0.6rem;
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.1em;cursor:pointer;transition:opacity .2s;
+}
+.add-to-order-btn:hover{opacity:0.85;}
+
+/* CUSTOM PRINTS SECTION */
+.custom-section{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;border-top:1px solid var(--border);
+}
+.custom-left{padding:4rem;}
+.custom-left h2{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:900;line-height:0.95;
+  color:var(--white);margin-bottom:1rem;
+}
+.custom-left p{font-size:1rem;color:var(--gray2);line-height:1.6;margin-bottom:1.5rem;}
+.custom-feature{
+  display:flex;align-items:center;gap:0.75rem;
+  font-family:'Space Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.06em;color:var(--gray2);
+  margin-bottom:0.75rem;
+}
+.custom-feature::before{content:'—';color:var(--red);}
+.custom-right{
+  background:var(--bg3);border-left:1px solid var(--border);
+  padding:3rem;display:flex;flex-direction:column;justify-content:center;
+}
+.custom-form-eyebrow{
+  display:flex;align-items:center;gap:0.5rem;
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.12em;color:var(--red);margin-bottom:1.25rem;
+}
+.field-label{
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.1em;color:var(--gray);margin-bottom:0.5rem;display:block;
+}
+.field-textarea{
+  width:100%;background:var(--bg2);border:1px solid var(--border2);
+  padding:1rem;color:var(--white);
+  font-family:'Space Mono',monospace;font-size:0.75rem;
+  line-height:1.6;resize:vertical;min-height:140px;
+  outline:none;transition:border-color .2s;
+}
+.field-textarea:focus{border-color:var(--cyan);}
+.field-hint{font-size:0.75rem;color:var(--gray);margin-top:0.5rem;margin-bottom:1rem;}
+.field-input{
+  width:100%;background:var(--bg2);border:1px solid var(--border2);
+  padding:0.65rem 0.875rem;color:var(--white);
+  font-family:'Barlow',sans-serif;font-size:0.9rem;
+  outline:none;transition:border-color .2s;
+}
+.field-input:focus{border-color:var(--cyan);}
+.field-select{
+  width:100%;background:var(--bg2);border:1px solid var(--border2);
+  padding:0.65rem 0.875rem;color:var(--white);
+  font-family:'Barlow',sans-serif;font-size:0.9rem;
+  outline:none;transition:border-color .2s;appearance:none;cursor:pointer;
+}
+.field-select:focus{border-color:var(--cyan);}
+.field-group{margin-bottom:1.25rem;}
+
+/* CALCULATOR */
+.calc-page{max-width:860px;margin:0 auto;padding:3rem 2rem 5rem;}
+.calc-card{background:var(--bg3);border:1px solid var(--border);padding:2rem;margin-bottom:1.5rem;}
+.upload-drop-calc{
+  border:2px dashed var(--border2);padding:1.5rem;
+  text-align:center;cursor:pointer;transition:border-color .2s;
+  position:relative;
+}
+.upload-drop-calc:hover,.upload-drop-calc.dragover{border-color:var(--cyan);}
+.upload-drop-calc input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upload-drop-calc p{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--gray);margin-top:0.4rem;}
+.upload-drop-calc .hl{color:var(--cyan);}
+.slider-row{margin-bottom:1rem;}
+.slider-row-label{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.1em;color:var(--gray);margin-bottom:0.75rem;
+}
+.slider-row-label .val{
+  background:var(--bg);border:1px solid var(--border2);
+  padding:0.3rem 0.75rem;color:var(--white);font-size:0.85rem;font-weight:700;
+}
+input[type=range]{
+  width:100%;-webkit-appearance:none;height:4px;
+  background:var(--border2);outline:none;border-radius:2px;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;
+  background:var(--cyan);border-radius:50%;cursor:pointer;
+}
+.slider-ticks{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--gray);margin-top:0.375rem;}
+.size-hint-box{
+  background:var(--bg2);border:1px solid var(--border);
+  padding:0.875rem 1rem;margin-top:1rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.size-hint-label{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--cyan);letter-spacing:0.08em;}
+.size-hint-name{font-size:0.9rem;color:var(--white);margin-top:0.25rem;}
+.size-hint-weight{font-family:'Space Mono',monospace;font-size:0.85rem;font-weight:700;color:var(--white);}
+.price-display{text-align:center;padding:2rem 0;}
+.price-eyebrow{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;color:var(--gray);margin-bottom:0.75rem;}
+.price-big{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:5rem;font-weight:900;color:var(--red);
+  line-height:1;
+}
+.price-note{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--gray);margin-top:0.5rem;}
+.breakdown{border-top:1px solid var(--border);padding-top:1rem;margin-top:1rem;}
+.breakdown-row{
+  display:flex;justify-content:space-between;
+  font-family:'Space Mono',monospace;font-size:0.75rem;
+  color:var(--gray2);padding:0.4rem 0;
+}
+.breakdown-row.total{color:var(--white);font-weight:700;border-top:1px solid var(--border);padding-top:0.75rem;margin-top:0.25rem;}
+.breakdown-row.total .val{color:var(--red);}
+
+/* ORDER SUMMARY */
+.order-page{max-width:860px;margin:0 auto;padding:3rem 2rem 5rem;}
+.order-eyebrow{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;color:var(--red);margin-bottom:0.75rem;}
+.order-h{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;color:var(--white);margin-bottom:2rem;}
+.order-empty{text-align:center;padding:5rem 2rem;}
+.order-empty svg{color:var(--gray);opacity:0.3;margin-bottom:1.5rem;}
+.order-empty p{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.14em;color:var(--gray);margin-bottom:1.5rem;}
+.order-empty-btn{
+  border:1px solid var(--red);color:var(--red);background:transparent;
+  padding:0.75rem 2rem;font-family:'Space Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.12em;cursor:pointer;
+  transition:all .2s;
+}
+.order-empty-btn:hover{background:var(--red);color:var(--white);}
+.order-item-card{
+  background:var(--bg3);border:1px solid var(--border);
+  padding:1.25rem;margin-bottom:1px;
+  display:flex;align-items:center;gap:1.25rem;
+}
+.order-item-emoji{font-size:2rem;width:52px;text-align:center;flex-shrink:0;}
+.order-item-info{flex:1;}
+.order-item-name{font-weight:700;font-size:1rem;margin-bottom:0.25rem;}
+.order-item-meta{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--gray);}
+.order-item-price{font-family:'Space Mono',monospace;font-weight:700;color:var(--red);}
+.order-item-remove{
+  background:none;border:none;color:var(--gray);cursor:pointer;
+  font-size:1.25rem;padding:0.25rem;transition:color .2s;
+}
+.order-item-remove:hover{color:var(--red);}
+
+.order-checkout-section{margin-top:2rem;background:var(--bg3);border:1px solid var(--border);padding:1.75rem;}
+.promo-row{display:flex;gap:0.75rem;margin-bottom:1.5rem;}
+.promo-input{
+  flex:1;background:var(--bg2);border:1px solid var(--border2);
+  padding:0.65rem 1rem;color:var(--white);
+  font-family:'Space Mono',monospace;font-size:0.75rem;
+  letter-spacing:0.08em;outline:none;
+}
+.promo-input:focus{border-color:var(--cyan);}
+.promo-btn{
+  background:transparent;border:1px solid var(--border2);
+  color:var(--gray2);padding:0.65rem 1.25rem;
+  font-family:'Space Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.08em;cursor:pointer;transition:all .2s;
+}
+.promo-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+.checkout-total{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 0;border-top:1px solid var(--border);
+  font-family:'Space Mono',monospace;font-size:0.9rem;font-weight:700;
+}
+.checkout-total .price{color:var(--red);font-size:1.25rem;}
+
+/* MY ORDERS */
+.my-orders-page{max-width:900px;margin:0 auto;padding:3rem 2rem 5rem;}
+.orders-table{border:1px solid var(--border);}
+.orders-header{
+  display:grid;grid-template-columns:120px 1fr 120px 180px 130px 40px;
+  padding:0.75rem 1.25rem;
+  background:var(--bg3);border-bottom:1px solid var(--border);
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.1em;color:var(--gray);
+}
+.order-row{
+  display:grid;grid-template-columns:120px 1fr 120px 180px 130px 40px;
+  padding:1.25rem;border-bottom:1px solid var(--border);
+  background:var(--bg2);align-items:center;
+  font-family:'Space Mono',monospace;font-size:0.75rem;
+}
+.order-row:last-child{border-bottom:none;}
+.order-id-cell{color:var(--gray2);}
+.order-method-cell{color:var(--gray2);}
+.order-total-cell{color:var(--red);font-weight:700;}
+.order-date-cell{color:var(--gray);}
+.order-status-badge{
+  display:inline-block;padding:0.25rem 0.6rem;
+  font-size:0.62rem;letter-spacing:0.08em;font-weight:700;
+  border:1px solid;
+}
+.status-pending{border-color:var(--gray);color:var(--gray);}
+.status-in-progress{border-color:var(--cyan);color:var(--cyan);}
+.status-completed{border-color:#00e5a0;color:#00e5a0;}
+.status-cancelled{border-color:var(--gray);color:var(--gray);}
+.order-expand{background:none;border:none;color:var(--gray);cursor:pointer;font-size:1rem;}
+.order-detail-row{
+  background:var(--bg3);border-bottom:1px solid var(--border);
+  padding:1.25rem;display:none;
+}
+.order-detail-row.open{display:block;}
+.od-label{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--gray);margin-bottom:0.3rem;}
+.od-value{font-size:0.875rem;color:var(--gray2);}
+
+/* LOGIN / AUTH */
+.auth-page{
+  display:flex;align-items:center;justify-content:center;
+  min-height:calc(100vh - 56px);padding:2rem;
+}
+.auth-card{
+  background:var(--bg3);border:1px solid var(--border);
+  padding:2.5rem;width:100%;max-width:400px;
+}
+.auth-h{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;margin-bottom:0.375rem;}
+.auth-sub{font-size:0.875rem;color:var(--gray);margin-bottom:2rem;}
+.auth-link{color:var(--cyan);cursor:pointer;}
+.auth-link:hover{text-decoration:underline;}
+.auth-error{
+  background:rgba(229,57,53,0.1);border:1px solid var(--red);
+  color:var(--red);padding:0.65rem 0.875rem;
+  font-size:0.8125rem;margin-bottom:1rem;
+}
+
+/* ADMIN */
+.admin-page{max-width:1000px;margin:0 auto;padding:3rem 2rem 5rem;}
+.admin-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:2.5rem;}
+.admin-tab{
+  font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;
+  padding:0.75rem 1.5rem;color:var(--gray);background:transparent;
+  border:none;cursor:pointer;border-bottom:2px solid transparent;
+  margin-bottom:-1px;transition:all .2s;
+}
+.admin-tab.active{color:var(--red);border-bottom-color:var(--red);}
+.admin-tab:hover:not(.active){color:var(--white);}
+.admin-section{display:none;}
+.admin-section.active{display:block;}
+.admin-h{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;margin-bottom:0.5rem;}
+.admin-eyebrow{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;color:var(--red);margin-bottom:0.5rem;}
+.refresh-btn{
+  float:right;background:transparent;border:1px solid var(--border2);
+  color:var(--gray2);padding:0.4rem 0.875rem;
+  font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.08em;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:0.4rem;
+}
+.refresh-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+.user-list{border:1px solid var(--border);margin-top:1.5rem;}
+.user-row{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.25rem;border-bottom:1px solid var(--border);
+  background:var(--bg3);
+}
+.user-row:last-child{border-bottom:none;}
+.user-dot{width:10px;height:10px;border-radius:50%;background:var(--cyan);flex-shrink:0;}
+.user-info{flex:1;}
+.user-name{font-weight:600;font-size:0.9375rem;}
+.user-email{font-size:0.8125rem;color:var(--gray);}
+.user-role{
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.1em;color:var(--gray2);margin-right:1rem;
+}
+.deactivate-btn{
+  border:1px solid var(--red);color:var(--red);background:transparent;
+  padding:0.3rem 0.75rem;font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.08em;cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;gap:0.3rem;
+}
+.deactivate-btn:hover{background:var(--red);color:var(--white);}
+/* admin orders */
+.admin-orders-table{border:1px solid var(--border);margin-top:1.5rem;}
+.ao-header{
+  display:grid;grid-template-columns:100px 1fr 120px 180px 130px 36px;
+  padding:0.65rem 1.25rem;background:var(--bg4);
+  border-bottom:1px solid var(--border);
+  font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--gray);
+}
+.ao-row{
+  display:grid;grid-template-columns:100px 1fr 120px 180px 130px 36px;
+  padding:1rem 1.25rem;border-bottom:1px solid var(--border);
+  background:var(--bg3);align-items:center;
+  font-family:'Space Mono',monospace;font-size:0.72rem;
+  transition:background .15s;
+}
+.ao-row:hover{background:var(--bg4);}
+.ao-row:last-child{border-bottom:none;}
+.ao-expand{background:none;border:none;color:var(--gray);cursor:pointer;font-size:0.9rem;}
+.ao-detail{
+  background:var(--bg4);border-bottom:1px solid var(--border);
+  padding:1.25rem 1.5rem;display:none;
+}
+.ao-detail.open{display:grid;grid-template-columns:1fr 320px;gap:2rem;}
+.ao-detail-left{}
+.ao-detail-right{background:var(--bg3);border:1px solid var(--border);padding:1.25rem;}
+.return-price-label{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--cyan);letter-spacing:0.1em;margin-bottom:0.5rem;}
+.return-price-current{font-size:1rem;font-weight:700;color:var(--red);margin-bottom:0.875rem;}
+.return-price-input{
+  width:100%;background:var(--bg2);border:1px solid var(--border2);
+  padding:0.75rem;color:var(--white);font-size:1rem;
+  font-family:'Barlow',sans-serif;outline:none;margin-bottom:0.875rem;
+}
+.return-price-input:focus{border-color:var(--cyan);}
+.status-btns{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;}
+.status-btn{
+  padding:0.4rem 0.875rem;border:1px solid var(--border2);
+  background:transparent;color:var(--gray2);
+  font-family:'Space Mono',monospace;font-size:0.62rem;
+  letter-spacing:0.08em;cursor:pointer;transition:all .15s;
+}
+.status-btn:hover,.status-btn.active-status{border-color:var(--cyan);color:var(--cyan);}
+/* promo */
+.promo-create-row{
+  display:flex;gap:0.75rem;margin-bottom:1.5rem;align-items:center;
+}
+.promo-code-input{
+  flex:1;background:var(--bg2);border:1px solid var(--border2);
+  padding:0.75rem 1rem;color:var(--white);
+  font-family:'Space Mono',monospace;font-size:0.8rem;letter-spacing:0.08em;
+  outline:none;
+}
+.promo-code-input:focus{border-color:var(--cyan);}
+.promo-amount-input{
+  width:80px;background:var(--bg2);border:1px solid var(--border2);
+  padding:0.75rem 0.5rem;color:var(--white);
+  font-family:'Space Mono',monospace;font-size:0.8rem;text-align:center;
+  outline:none;
+}
+.promo-amount-input:focus{border-color:var(--cyan);}
+.promo-create-btn{
+  background:var(--cyan);color:#001a14;border:none;
+  padding:0.75rem 1.25rem;font-family:'Space Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.1em;cursor:pointer;font-weight:700;
+  white-space:nowrap;
+}
+.promo-none{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--cyan);letter-spacing:0.1em;}
+.promo-list{border:1px solid var(--border);margin-top:1rem;}
+.promo-row-item{
+  display:flex;align-items:center;gap:1rem;
+  padding:0.875rem 1.25rem;border-bottom:1px solid var(--border);
+  background:var(--bg3);font-family:'Space Mono',monospace;
+}
+.promo-row-item:last-child{border-bottom:none;}
+.promo-code-name{font-size:0.85rem;font-weight:700;color:var(--white);flex:1;}
+.promo-code-val{font-size:0.75rem;color:var(--red);}
+.promo-delete-btn{
+  background:none;border:1px solid var(--border2);color:var(--gray);
+  padding:0.25rem 0.5rem;font-size:0.65rem;cursor:pointer;
+  font-family:'Space Mono',monospace;letter-spacing:0.06em;
+}
+.promo-delete-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* TOAST */
+#toast{
+  position:fixed;bottom:2rem;right:2rem;z-index:9999;
+  background:var(--bg3);border:1px solid var(--border);
+  border-left:3px solid var(--cyan);
+  padding:0.875rem 1.25rem;font-size:0.875rem;
+  opacity:0;pointer-events:none;transform:translateY(8px);
+  transition:all .3s;max-width:320px;
+  font-family:'Space Mono',monospace;font-size:0.7rem;
+}
+#toast.show{opacity:1;transform:translateY(0);}
+#toast.red{border-left-color:var(--red);}
+
+/* TOC SIDEBAR */
+#tocSidebar{
+  position:fixed;top:56px;left:0;bottom:0;width:260px;
+  background:rgba(9,9,15,0.97);border-right:1px solid var(--border);
+  z-index:150;transform:translateX(-100%);transition:transform .25s;
+  padding:2rem 1.5rem;overflow-y:auto;
+}
+#tocSidebar.open{transform:translateX(0);}
+.toc-h{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;color:var(--gray);margin-bottom:1.25rem;}
+.toc-item{
+  display:block;padding:0.6rem 0;
+  font-family:'Space Mono',monospace;font-size:0.72rem;
+  letter-spacing:0.08em;color:var(--gray2);
+  border-bottom:1px solid var(--border);cursor:pointer;
+  transition:color .15s;
+}
+.toc-item:hover{color:var(--cyan);}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:2rem;}
+  .hero-3d{display:none;}
+  .hero-upload-card{display:none;}
+  .materials-grid{grid-template-columns:1fr;}
+  .catalog-grid{grid-template-columns:repeat(2,1fr);}
+  .custom-section{grid-template-columns:1fr;}
+  .custom-right{border-left:none;border-top:1px solid var(--border);}
+  .section,.section-sm{padding:3rem 1.5rem;}
+  .catalog-header{padding:2rem 1.5rem 0;}
+  .ao-header,.ao-row{grid-template-columns:80px 1fr 90px 110px;}
+  .ao-header>:nth-child(5),.ao-header>:nth-child(6),
+  .ao-row>:nth-child(5),.ao-row>:nth-child(6){display:none;}
+  .ao-detail.open{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <button class="nav-toc" onclick="toggleTOC()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      TABLE OF CONTENTS
+    </button>
+    <span class="nav-brand" onclick="showPage('home')">ZENITH PRINTING</span>
+  </div>
+  <div class="nav-right" id="navRight">
+    <a class="nav-link active" onclick="showPage('home')" data-page="home">HOME</a>
+    <a class="nav-link" onclick="showPage('catalog')" data-page="catalog">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+      CATALOG
+    </a>
+    <a class="nav-link" onclick="showPage('order')" data-page="order">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      ORDER
+    </a>
+    <a class="nav-link" onclick="showPage('myorders')" data-page="myorders">MY ORDERS</a>
+    <a class="nav-link" onclick="showPage('calculator')" data-page="calculator">CALCULATOR</a>
+    <span id="navAuthArea">
+      <a class="nav-link" onclick="showPage('login')" data-page="login">SIGN IN</a>
+    </span>
+  </div>
+</nav>
+
+<!-- TOC SIDEBAR -->
+<div id="tocSidebar">
+  <div class="toc-h">NAVIGATION</div>
+  <a class="toc-item" onclick="showPage('home');toggleTOC()">🏠 Home</a>
+  <a class="toc-item" onclick="showPage('catalog');toggleTOC()">📦 Browse Catalog</a>
+  <a class="toc-item" onclick="showPage('order');toggleTOC()">🛒 View Order</a>
+  <a class="toc-item" onclick="showPage('myorders');toggleTOC()">📋 My Orders</a>
+  <a class="toc-item" onclick="showPage('calculator');toggleTOC()">🧮 Price Calculator</a>
+  <a class="toc-item" onclick="showPage('login');toggleTOC()" id="tocAuthLink">Sign In</a>
+</div>
+
+<!-- ====== HOME ====== -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-bg-shape"></div>
+    <!-- Background 3D shape SVG -->
+    <div class="hero-3d">
+      <svg viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="140,20 260,90 260,190 140,260 20,190 20,90" stroke="#00c8a0" stroke-width="1.5" fill="none" opacity="0.6"/>
+        <polygon points="140,50 230,100 230,180 140,230 50,180 50,100" stroke="#00c8a0" stroke-width="1" fill="none" opacity="0.4"/>
+        <polygon points="140,80 200,110 200,170 140,200 80,170 80,110" stroke="#00c8a0" stroke-width="0.75" fill="none" opacity="0.3"/>
+        <line x1="140" y1="20" x2="140" y2="80" stroke="#00c8a0" stroke-width="0.5" opacity="0.3"/>
+        <line x1="260" y1="90" x2="200" y2="110" stroke="#00c8a0" stroke-width="0.5" opacity="0.3"/>
+        <line x1="260" y1="190" x2="200" y2="170" stroke="#00c8a0" stroke-width="0.5" opacity="0.3"/>
+        <line x1="140" y1="260" x2="140" y2="200" stroke="#00c8a0" stroke-width="0.5" opacity="0.3"/>
+        <line x1="20" y1="190" x2="80" y2="170" stroke="#00c8a0" stroke-width="0.5" opacity="0.3"/>
+        <line x1="20" y1="90" x2="80" y2="110" stroke="#00c8a0" stroke-width="0.5" opacity="0.3"/>
+        <circle cx="140" cy="140" r="4" fill="#00c8a0" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>⚙</span> PRECISION AT APEX VELOCITY
+      </div>
+      <h1 class="hero-h1">DIGITAL<br>GEOMETRY,<br>PHYSICALLY<br>EXACT.</h1>
+      <p class="hero-sub">Zenith Printing turns your digital geometry into precision FDM-printed parts — from single prototypes to full production batches.</p>
+      <div class="hero-actions">
+        <button class="btn-cyan" onclick="showPage('catalog')">START YOUR BUILD →</button>
+        <button class="btn-outline" onclick="showPage('catalog')">EXPLORE MATERIALS</button>
+      </div>
+    </div>
+
+    <div class="hero-upload-card">
+      <div class="card-eyebrow">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        START YOUR BUILD
+      </div>
+      <div class="upload-drop" id="heroUploadDrop" onclick="document.getElementById('heroFileInput').click()">
+        <input type="file" id="heroFileInput" accept=".stl,.obj,.3mf" multiple onchange="handleHeroUpload(event)">
+        <div class="upload-drop-icon">
+          <svg width="32" height="32" fill="none" stroke="#00c8a0" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        </div>
+        <h3>Drop STL / OBJ files here</h3>
+        <p>Instantly stage your geometry for a quote request</p>
+      </div>
+      <div class="hero-stats">
+        <div class="h-stat"><div class="h-stat-num" id="activeBuildCount">63</div><div class="h-stat-label">active builds</div></div>
+        <div class="h-stat"><div class="h-stat-num">99.8%</div><div class="h-stat-label">uptime</div></div>
+        <div class="h-stat"><div class="h-stat-num">0.1mm</div><div class="h-stat-label">precision</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATERIALS -->
+  <section class="section" style="background:var(--bg);">
+    <div class="eyebrow">MATERIALS</div>
+    <h2 class="section-h">Available materials.</h2>
+    <div class="materials-grid">
+      <div class="mat-card" onclick="showPage('catalog')">
+        <div class="mat-img">
+          <div class="mat-img-inner">🔮</div>
+          <div class="mat-badge badge-stock">IN STOCK</div>
+        </div>
+        <div class="mat-body">
+          <div class="mat-name">PLA <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+          <div class="mat-desc">Standard PLA — optimised for dimensional accuracy and surface quality right off the bed.</div>
+          <div class="mat-tags">General purpose desktop prints, concept models, display pieces</div>
+        </div>
+      </div>
+      <div class="mat-card">
+        <div class="mat-img">
+          <div class="mat-img-inner">⚫</div>
+          <div class="mat-badge badge-out">⚠ OUT OF STOCK</div>
+        </div>
+        <div class="mat-body">
+          <div class="mat-name">PLA+ <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+          <div class="mat-desc">Enhanced PLA formulation with improved impact resistance and reduced brittleness over standard PLA.</div>
+          <div class="mat-tags">Functional prototypes, snap-fit enclosures, light-duty tooling</div>
+        </div>
+      </div>
+      <div class="mat-card">
+        <div class="mat-img">
+          <div class="mat-img-inner">🖤</div>
+          <div class="mat-badge badge-out">⚠ OUT OF STOCK</div>
+        </div>
+        <div class="mat-body">
+          <div class="mat-name">TPU <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+          <div class="mat-desc">Flexible, rubber-like filament. Excellent for parts requiring elasticity and impact absorption.</div>
+          <div class="mat-tags">Gaskets, grips, flexible enclosures, wearables</div>
+        </div>
+      </div>
+    </div>
+    <!-- PETG row -->
+    <div class="materials-grid" style="margin-top:1px;border-top:none;">
+      <div class="mat-card" style="grid-column:1/2;">
+        <div class="mat-img">
+          <div class="mat-img-inner">🌊</div>
+          <div class="mat-badge badge-out">⚠ OUT OF STOCK</div>
+        </div>
+        <div class="mat-body">
+          <div class="mat-name">PETG <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+          <div class="mat-desc">Tough, chemical-resistant, and slightly flexible. Good layer adhesion and temperature resistance.</div>
+          <div class="mat-tags">Mechanical parts, food-safe containers, outdoor components</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUSTOM PRINTS -->
+  <div class="custom-section">
+    <div class="custom-left">
+      <div class="eyebrow red">CUSTOM PRINTS</div>
+      <h2>Your idea,<br>printed.</h2>
+      <p>Don't see what you need in the catalog? Describe exactly what you want and our team will quote it, model it, and print it for you.</p>
+      <div class="custom-feature">ANY GEOMETRY, ANY COMPLEXITY</div>
+      <div class="custom-feature">MULTIPLE MATERIAL OPTIONS</div>
+      <div class="custom-feature">QUOTE WITHIN 24 HOURS</div>
+      <div class="custom-feature">POST-PROCESSING AVAILABLE ON REQUEST</div>
+    </div>
+    <div class="custom-right">
+      <div class="custom-form-eyebrow">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        CUSTOM REQUEST
+      </div>
+      <div class="field-group">
+        <label class="field-label">DESCRIBE YOUR PRINT</label>
+        <textarea class="field-textarea" id="customDesc" placeholder="E.g. A 150mm dragon figurine with articulated tail, printed in red PLA+ with 0.1mm layer height and 20% infill..."></textarea>
+        <div class="field-hint">Include size, material preference, color, detail level — anything helps.</div>
+      </div>
+      <button class="btn-red" onclick="addCustomToOrder()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z"/></svg>
+        ADD CUSTOM REQUEST TO ORDER
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== CATALOG ====== -->
+<div class="page" id="page-catalog">
+  <div class="catalog-header">
+    <div class="eyebrow red">PRINT CATALOG</div>
+    <h1 class="section-h">Browse the collection.</h1>
+    <p style="color:var(--gray2);margin-top:0.75rem;max-width:520px;">Fidgets, figurines, home decor, and desk accessories — all precision-printed in PLA on our FDM printers.</p>
+    <div class="cat-filters">
+      <button class="cat-filter active" onclick="filterCat(this,'all')">ALL</button>
+      <button class="cat-filter" onclick="filterCat(this,'fidgets')">FIDGETS</button>
+      <button class="cat-filter" onclick="filterCat(this,'figurines')">FIGURINES</button>
+      <button class="cat-filter" onclick="filterCat(this,'home')">HOME &amp; DECOR</button>
+      <button class="cat-filter" onclick="filterCat(this,'desk')">DESK &amp; TECH</button>
+      <button class="cat-filter" onclick="filterCat(this,'small')">SMALL ITEMS</button>
+    </div>
+  </div>
+  <div class="catalog-grid" id="catalogGrid"></div>
+</div>
+
+<!-- ====== ORDER SUMMARY ====== -->
+<div class="page" id="page-order">
+  <div class="order-page">
+    <div class="order-eyebrow">YOUR ORDER</div>
+    <h1 class="order-h">Order Summary</h1>
+    <div id="orderContent"></div>
+  </div>
+</div>
+
+<!-- ====== MY ORDERS ====== -->
+<div class="page" id="page-myorders">
+  <div class="my-orders-page">
+    <div class="order-eyebrow">ACCOUNT</div>
+    <h1 class="order-h" style="font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;">My Orders</h1>
+    <div id="myOrdersContent"></div>
+  </div>
+</div>
+
+<!-- ====== CALCULATOR ====== -->
+<div class="page" id="page-calculator">
+  <div class="calc-page">
+    <div class="eyebrow" style="display:flex;align-items:center;gap:0.5rem;">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h4"/></svg>
+      PRICE ESTIMATOR
+    </div>
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;margin-bottom:0.5rem;">Print Calculator</h1>
+    <p style="color:var(--gray2);margin-bottom:2rem;">Estimate the cost of your custom 3D print by entering the weight or uploading your STL model.</p>
+
+    <div class="calc-card">
+      <div class="field-label">UPLOAD STL TO AUTO-ESTIMATE WEIGHT</div>
+      <div class="upload-drop-calc" id="calcUploadDrop" onclick="document.getElementById('calcFileInput').click()">
+        <input type="file" id="calcFileInput" accept=".stl" onchange="handleCalcUpload(event)">
+        <svg width="24" height="24" fill="none" stroke="#00c8a0" stroke-width="2" viewBox="0 0 24 24" style="margin-bottom:0.5rem;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        <p>Drop STL file here or <span class="hl">click to browse</span></p>
+        <p style="font-size:0.6rem;margin-top:0.25rem;color:var(--border2);">STL format only · weight auto-calculated</p>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <div class="slider-row">
+        <div class="slider-row-label">
+          <span>PRINT WEIGHT</span>
+          <div class="val"><span id="weightVal">100</span> g</div>
+        </div>
+        <input type="range" min="1" max="1000" value="100" id="weightSlider" oninput="updateCalc()">
+        <div class="slider-ticks"><span>1g</span><span>250g</span><span>500g</span><span>750g</span><span>1000g</span></div>
+      </div>
+
+      <div class="size-hint-box">
+        <div>
+          <div class="size-hint-label" id="sizeHintLabel">SMALL PRINT</div>
+          <div class="size-hint-name" id="sizeHintName">Phone cases, small housings</div>
+        </div>
+        <div class="size-hint-weight">EST. WEIGHT<br><span id="sizeHintWeight" style="font-size:1.25rem;">100g</span></div>
+      </div>
+
+      <div class="price-display">
+        <div class="price-eyebrow">ESTIMATED PRICE</div>
+        <div class="price-big" id="calcPriceBig">$4.00</div>
+        <div class="price-note">Includes material &amp; setup. Final price may vary.</div>
+      </div>
+
+      <div class="breakdown">
+        <div class="field-label" style="margin-bottom:0.75rem;">COST BREAKDOWN</div>
+        <div class="breakdown-row"><span>Base fee</span><span>$1.00</span></div>
+        <div class="breakdown-row"><span id="matLineLabel">Material (100g × $0.03/g)</span><span id="matLineVal">$3.00</span></div>
+        <div class="breakdown-row total"><span>Total</span><span class="val" id="totalLineVal">$4.00</span></div>
+      </div>
+
+      <button class="btn-red" style="margin-top:1.5rem;" onclick="showPage('order')">ORDER NOW</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LOGIN ====== -->
+<div class="page" id="page-login">
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2 class="auth-h">Sign In</h2>
+      <p class="auth-sub">New here? <a class="auth-link" onclick="showPage('register')">Create an account</a></p>
+      <div id="loginError" class="auth-error" style="display:none;"></div>
+      <div class="field-group">
+        <label class="field-label">EMAIL ADDRESS</label>
+        <input type="email" class="field-input" id="loginEmail" placeholder="you@example.com">
+      </div>
+      <div class="field-group">
+        <label class="field-label">PASSWORD</label>
+        <input type="password" class="field-input" id="loginPassword" placeholder="••••••••">
+      </div>
+      <button class="btn-cyan" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="doLogin()">SIGN IN →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== REGISTER ====== -->
+<div class="page" id="page-register">
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2 class="auth-h">Create Account</h2>
+      <p class="auth-sub">Already have one? <a class="auth-link" onclick="showPage('login')">Sign in</a></p>
+      <div class="field-group">
+        <label class="field-label">FULL NAME</label>
+        <input type="text" class="field-input" id="regName" placeholder="Alex Chen">
+      </div>
+      <div class="field-group">
+        <label class="field-label">EMAIL ADDRESS</label>
+        <input type="email" class="field-input" id="regEmail" placeholder="you@example.com">
+      </div>
+      <div class="field-group">
+        <label class="field-label">PASSWORD</label>
+        <input type="password" class="field-input" id="regPassword" placeholder="At least 8 characters">
+      </div>
+      <button class="btn-cyan" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="doRegister()">CREATE ACCOUNT →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== ADMIN ====== -->
+<div class="page" id="page-admin">
+  <div class="admin-page">
+    <div class="admin-eyebrow">ADMIN</div>
+    <h1 class="admin-h">Dashboard</h1>
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab(this,'tab-orders')">ALL ORDERS</button>
+      <button class="admin-tab" onclick="switchAdminTab(this,'tab-users')">USER ACCOUNTS</button>
+      <button class="admin-tab" onclick="switchAdminTab(this,'tab-promos')">DISCOUNT CODES</button>
+    </div>
+
+    <!-- ORDERS TAB -->
+    <div class="admin-section active" id="tab-orders">
+      <div style="overflow:hidden;margin-bottom:1rem;">
+        <h2 style="float:left;font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;">All Orders</h2>
+        <button class="refresh-btn" style="float:right;" onclick="renderAdminOrders()">↻ REFRESH</button>
+      </div>
+      <div class="admin-orders-table" id="adminOrdersTable"></div>
+    </div>
+
+    <!-- USERS TAB -->
+    <div class="admin-section" id="tab-users">
+      <div style="overflow:hidden;margin-bottom:1rem;">
+        <h2 style="float:left;font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;">User Accounts</h2>
+        <button class="refresh-btn" style="float:right;" onclick="renderAdminUsers()">↻ REFRESH</button>
+      </div>
+      <div class="user-list" id="adminUserList"></div>
+    </div>
+
+    <!-- PROMOS TAB -->
+    <div class="admin-section" id="tab-promos">
+      <div class="admin-eyebrow">ADMIN</div>
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;margin-bottom:1.5rem;">Discount Codes</h2>
+      <div class="promo-create-row">
+        <input type="text" class="promo-code-input" id="promoCodeInput" placeholder="CODE (e.g. SAVE10)">
+        <span style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--gray);padding:0 0.25rem;">$</span>
+        <input type="number" class="promo-amount-input" id="promoAmountInput" placeholder="5" min="1" max="10" value="5">
+        <span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--gray);white-space:nowrap;">off (1–10)</span>
+        <button class="promo-create-btn" onclick="createPromo()">+ CREATE CODE</button>
+      </div>
+      <div id="promoList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ===== STATE =====
+let currentUser = null; // {name, email, isAdmin}
+let cart = []; // [{id, name, emoji, price, weight, color, qty, isCustom, desc}]
+let users = [
+  {name:'gauravmengi', email:'gauravmengi@yahoo.com', role:'user', active:true},
+  {name:'here.ishan.m', email:'here.ishan.m@gmail.com', role:'user', active:true},
+  {name:'Kabir S (KS)', email:'newmember11@gmail.com', role:'user', active:true},
+  {name:'Vihaan V', email:'vvihaan885522@gmail.com', role:'user', active:true},
+  {name:'aryandha8447', email:'aryandha8447@k12.ipsd.org', role:'user', active:true},
+  {name:'Vayun A', email:'vayun.adupala@gmail.com', role:'user', active:true},
+  {name:'aryandhawan1415', email:'aryandhawan1415@gmail.com', role:'admin', active:true},
+];
+let orders = [
+  {id:'#BB545F', customer:'newmember11@gmail.com', total:'TBD', date:'6/16/2026 09:44 PM', status:'pending', method:'Pickup', items:[{name:'Custom Print',desc:'a test custom order',qty:1}], returnPrice:null},
+  {id:'#B43F58', customer:'vvihaan885522@gmail.com', total:'$5.61', date:'6/16/2026 09:29 PM', status:'pending', method:'Pickup', items:[{name:'Articulated Dragon',desc:'',qty:1}], returnPrice:5.61},
+  {id:'#93DF0E', customer:'vayun.adupala@gmail.com', total:'$7.40', date:'6/16/2026 08:17 PM', status:'completed', method:'Pickup', items:[{name:'Fidget Cube',desc:'',qty:1}], returnPrice:7.40},
+  {id:'#5190FF', customer:'vayun.adupala@gmail.com', total:'$7.70', date:'6/16/2026 08:08 PM', status:'pending', method:'Pickup', items:[{name:'Snake Figurine',desc:'',qty:1}], returnPrice:7.70},
+  {id:'#A37E01', customer:'vayun.adupala@gmail.com', total:'$1.25', date:'6/15/2026 09:06 PM', status:'cancelled', method:'Pickup', items:[{name:'Custom Print',desc:'a cucumber wro',qty:1}], returnPrice:1.25},
+];
+let promos = [];
+let myOrders = [
+  {id:'#3239D9', method:'Pickup', total:'$2.99', date:'6/17/2026', status:'cancelled', items:[{name:'PLA Phone Case',qty:1}]}
+];
+
+const ADMIN_EMAIL = 'aryandhawan1415@gmail.com';
+const ADMIN_PASS = 'Magyk2013';
+
+// ===== CATALOG DATA =====
+const COLORS = {
+  red:'#e53935', yellow:'#f9a825', green:'#43a047',
+  blue:'#1565c0', purple:'#6a1b9a', gold:'#b8860b',
+  white:'#f5f5f5', black:'#212121', orange:'#e65100', grey:'#607d8b'
+};
+const catalogItems = [
+  {id:'ZG-001',name:'Fidget Cube',emoji:'🎲',cat:'fidgets',badge:'popular',price:3.99,weight:100,desc:'Satisfying multi-function fidget cube with buttons, switches, and dials on every face.',mat:'PLA',size:'60MM',time:'3H 20M',colors:['red','green','blue','purple','black','white']},
+  {id:'ZG-002',name:'Infinity Cube',emoji:'🔲',cat:'fidgets',badge:'bestseller',price:2.99,weight:80,desc:'Folding infinity cube that flips and folds endlessly. Great stress reliever.',mat:'PLA',size:'55MM',time:'2H 45M',colors:['black','blue','red','white']},
+  {id:'ZG-003',name:'Articulated Dragon',emoji:'🐉',cat:'figurines',badge:'popular',price:7.99,weight:220,desc:'Fully articulated dragon printed in-place. No assembly required — pick it up and it moves.',mat:'PLA',size:'350MM',time:'12H 00M',colors:['red','yellow','green','blue','purple','gold']},
+  {id:'ZG-004',name:'Low Poly Fox',emoji:'🦊',cat:'figurines',badge:'',price:4.99,weight:120,desc:'Geometric low-poly fox figurine with bold faceted surfaces. Great display piece.',mat:'PLA',size:'150MM',time:'8H 55M',colors:['red','yellow','green','blue','purple','gold']},
+  {id:'ZP-004',name:'Low Poly Figurine',emoji:'🐺',cat:'figurines',badge:'new',price:4.99,weight:120,desc:'Faceted low-poly sculpture with striking geometric form. Makes a bold statement on any desk or shelf.',mat:'PLA',size:'150MM',time:'8H 55M',colors:['red','yellow','green','blue','purple','gold']},
+  {id:'ZH-001',name:'Desk Planter',emoji:'🪴',cat:'home',badge:'',price:5.49,weight:150,desc:'Minimalist geometric planter for succulents and small plants. Drainage hole included.',mat:'PLA',size:'100MM',time:'5H 30M',colors:['white','black','green','blue']},
+  {id:'ZH-002',name:'Hex Wall Panel',emoji:'🔷',cat:'home',badge:'popular',price:3.49,weight:90,desc:'Tessellating hexagonal wall panel. Order multiple to create a custom wall display.',mat:'PLA',size:'120MM',time:'4H 00M',colors:['white','black','grey','blue']},
+  {id:'ZD-001',name:'Cable Organizer',emoji:'🔌',cat:'desk',badge:'',price:2.49,weight:60,desc:'Clips to desk edge to organize charging cables and prevent tangling.',mat:'PLA',size:'80MM',time:'1H 45M',colors:['black','white','grey']},
+  {id:'ZD-002',name:'Phone Stand',emoji:'📱',cat:'desk',badge:'bestseller',price:3.99,weight:110,desc:'Adjustable angle phone stand compatible with most smartphone sizes.',mat:'PLA',size:'120MM',time:'3H 00M',colors:['black','white','grey','blue']},
+  {id:'ZS-001',name:'Keychain Charm',emoji:'🔑',cat:'small',badge:'',price:1.49,weight:15,desc:'Compact and lightweight keychain charm. Customize with any text via special order.',mat:'PLA',size:'40MM',time:'0H 45M',colors:['red','blue','green','black','white']},
+  {id:'ZS-002',name:'Coin Tray',emoji:'🪙',cat:'small',badge:'',price:2.99,weight:70,desc:'Small geometric tray for coins, rings, or small items. Great desk or nightstand companion.',mat:'PLA',size:'90MM',time:'2H 10M',colors:['black','white','grey','gold']},
+  {id:'ZF-003',name:'Spinner Ring',emoji:'💍',cat:'fidgets',badge:'',price:2.49,weight:30,desc:'Smooth-spinning ring fidget. The outer band rotates freely around the inner base.',mat:'PLA',size:'25MM',time:'1H 10M',colors:['black','white','gold','red']},
+];
+
+let selectedColors = {}; // id -> color
+
+// ===== ROUTING =====
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
+  const page = document.getElementById('page-'+name);
+  if(page) page.classList.add('active');
+  const link = document.querySelector(`[data-page="${name}"]`);
+  if(link) link.classList.add('active');
+  window.scrollTo(0,0);
+  if(name==='order') renderOrder();
+  if(name==='myorders') renderMyOrders();
+  if(name==='admin'){renderAdminOrders();renderAdminUsers();renderPromos();}
+  if(name==='catalog') renderCatalog('all');
+}
+
+// ===== TOC =====
+let tocOpen=false;
+function toggleTOC(){
+  tocOpen=!tocOpen;
+  document.getElementById('tocSidebar').classList.toggle('open',tocOpen);
+}
+document.addEventListener('click',e=>{
+  if(tocOpen && !e.target.closest('#tocSidebar') && !e.target.closest('.nav-toc')){
+    tocOpen=false; document.getElementById('tocSidebar').classList.remove('open');
+  }
+});
+
+// ===== AUTH =====
+function updateNav(){
+  const area = document.getElementById('navAuthArea');
+  const tocAuthLink = document.getElementById('tocAuthLink');
+  if(currentUser){
+    let links = `<a class="nav-link" onclick="showPage('myorders')" style="color:var(--cyan);">${currentUser.name.split(' ')[0].toUpperCase()}</a>
+                 <a class="nav-link" onclick="doLogout()">SIGN OUT</a>`;
+    if(currentUser.isAdmin) links = `<a class="nav-link" onclick="showPage('admin')" style="color:var(--red);">ADMIN</a>` + links;
+    area.innerHTML = links;
+    if(tocAuthLink) tocAuthLink.textContent = 'Sign Out';
+    if(tocAuthLink) tocAuthLink.onclick = ()=>{doLogout();toggleTOC();};
+  } else {
+    area.innerHTML = `<a class="nav-link" onclick="showPage('login')" data-page="login">SIGN IN</a>`;
+    if(tocAuthLink){tocAuthLink.textContent='Sign In';tocAuthLink.onclick=()=>{showPage('login');toggleTOC();};}
+  }
+}
+
+function doLogin(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  errEl.style.display='none';
+  if(!email||!pass){errEl.textContent='Please fill in all fields.';errEl.style.display='block';return;}
+  if(email===ADMIN_EMAIL && pass===ADMIN_PASS){
+    currentUser={name:'aryandhawan1415',email:ADMIN_EMAIL,isAdmin:true};
+    updateNav(); showPage('admin'); showToast('Signed in as admin.');
+  } else {
+    const u = users.find(u=>u.email===email);
+    if(u){
+      currentUser={name:u.name,email:u.email,isAdmin:false};
+      updateNav(); showPage('home'); showToast(`Welcome back, ${u.name}!`);
+    } else {
+      errEl.textContent='Invalid email or password.'; errEl.style.display='block';
+    }
+  }
+}
+
+function doRegister(){
+  const name=document.getElementById('regName').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const pass=document.getElementById('regPassword').value;
+  if(!name||!email||!pass){showToast('Please fill in all fields.','red');return;}
+  if(users.find(u=>u.email===email)){showToast('Email already registered.','red');return;}
+  users.push({name,email,role:'user',active:true});
+  currentUser={name,email,isAdmin:false};
+  updateNav(); showPage('home'); showToast(`Account created! Welcome, ${name}!`);
+}
+
+function doLogout(){
+  currentUser=null; updateNav(); showPage('home'); showToast('Signed out.');
+}
+
+// ===== HERO UPLOAD =====
+function handleHeroUpload(e){
+  const files = e.target.files;
+  if(!files||!files.length) return;
+  const names = Array.from(files).map(f=>f.name).join(', ');
+  showToast(`File uploaded: ${names} — DFM analysis running...`);
+  // Add as custom order item
+  cart.push({id:'upload-'+Date.now(),name:'Uploaded File',emoji:'📂',price:null,weight:null,color:'N/A',qty:1,isCustom:true,desc:`File: ${names}`});
+}
+
+// ===== CATALOG =====
+function renderCatalog(filter){
+  const grid = document.getElementById('catalogGrid');
+  const items = filter==='all' ? catalogItems : catalogItems.filter(i=>i.cat===filter);
+  grid.innerHTML = items.map(item=>{
+    const sel = selectedColors[item.id]||item.colors[0];
+    const badgeHTML = item.badge ? `<div class="cat-badge-pop badge-${item.badge==='popular'?'popular':item.badge==='bestseller'?'bestseller':'new'}">${item.badge.toUpperCase()}</div>` : '';
+    const catLabel = {fidgets:'FIDGETS',figurines:'FIGURINES',home:'HOME & DECOR',desk:'DESK & TECH',small:'SMALL ITEMS'}[item.cat]||item.cat.toUpperCase();
+    const colorDots = item.colors.map(c=>`
+      <div class="color-dot ${sel===c?'selected':''}" style="background:${COLORS[c]||c};" title="${c}" onclick="event.stopPropagation();selectColor('${item.id}','${c}')"></div>
+    `).join('');
+    return `
+      <div class="cat-card" data-cat="${item.cat}">
+        <div class="cat-img" style="background:linear-gradient(135deg,#0d1a2a,#1a2d45);">
+          <div style="font-size:5rem;">${item.emoji}</div>
+          ${badgeHTML}
+          <div class="cat-badge-cat">${catLabel}</div>
+        </div>
+        <div class="cat-body">
+          <div class="cat-sku">${item.id}</div>
+          <div class="cat-row">
+            <span class="cat-name">${item.name}</span>
+            <span class="cat-price">$${item.price.toFixed(2)}</span>
+          </div>
+          <div class="cat-weight">${item.weight}g</div>
+          <div class="cat-desc">${item.desc}</div>
+          <div class="cat-meta">
+            <span>${item.mat}</span>
+            <span>${item.size}</span>
+            <span>${item.time}</span>
+          </div>
+          <div class="cat-colors">
+            <div class="cat-colors-label">AVAILABLE COLORS</div>
+            <div class="color-dots" id="dots-${item.id}">${colorDots}</div>
+          </div>
+          <button class="add-to-order-btn" onclick="addToCart('${item.id}')">ADD TO ORDER</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function filterCat(btn,cat){
+  document.querySelectorAll('.cat-filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCatalog(cat);
+}
+
+function selectColor(itemId, color){
+  selectedColors[itemId] = color;
+  // re-render just the dots
+  const item = catalogItems.find(i=>i.id===itemId);
+  if(!item) return;
+  const dotsEl = document.getElementById('dots-'+itemId);
+  if(dotsEl) dotsEl.innerHTML = item.colors.map(c=>`
+    <div class="color-dot ${color===c?'selected':''}" style="background:${COLORS[c]||c};" title="${c}" onclick="event.stopPropagation();selectColor('${itemId}','${c}')"></div>
+  `).join('');
+}
+
+function addToCart(itemId){
+  const item = catalogItems.find(i=>i.id===itemId);
+  if(!item) return;
+  const color = selectedColors[itemId]||item.colors[0];
+  const existing = cart.find(c=>c.id===itemId && c.color===color);
+  if(existing){existing.qty++;}
+  else {cart.push({id:itemId,name:item.name,emoji:item.emoji,price:item.price,weight:item.weight,color,qty:1,isCustom:false});}
+  showToast(`${item.name} added to order!`);
+}
+
+function addCustomToOrder(){
+  const desc = document.getElementById('customDesc').value.trim();
+  if(!desc){showToast('Please describe your print first.','red');return;}
+  cart.push({id:'custom-'+Date.now(),name:'Custom Print',emoji:'🔧',price:null,weight:null,color:'TBD',qty:1,isCustom:true,desc});
+  document.getElementById('customDesc').value='';
+  showToast('Custom request added to order!');
+  showPage('order');
+}
+
+// ===== ORDER =====
+function renderOrder(){
+  const el = document.getElementById('orderContent');
+  if(cart.length===0){
+    el.innerHTML=`<div class="order-empty">
+      <svg width="80" height="80" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      <p>YOUR ORDER IS EMPTY</p>
+      <button class="order-empty-btn" onclick="showPage('catalog')">BROWSE CATALOG</button>
+    </div>`;
+    return;
+  }
+
+  let subtotal=0;
+  const itemsHTML = cart.map((item,i)=>{
+    const priceStr = item.price!=null ? `$${(item.price*item.qty).toFixed(2)}` : 'TBD';
+    if(item.price!=null) subtotal+=item.price*item.qty;
+    return `<div class="order-item-card">
+      <div class="order-item-emoji">${item.emoji}</div>
+      <div class="order-item-info">
+        <div class="order-item-name">${item.name}${item.isCustom?' <span style="font-size:0.75rem;color:var(--cyan);font-family:Space Mono,monospace;">[Custom]</span>':''} × ${item.qty}</div>
+        <div class="order-item-meta">${item.isCustom&&item.desc?'CUSTOM DESCRIPTION: '+item.desc : 'Color: '+item.color+' · '+item.weight+'g'}</div>
+      </div>
+      <div class="order-item-price">${priceStr}</div>
+      <button class="order-item-remove" onclick="removeFromCart(${i})">×</button>
+    </div>`;
+  }).join('');
+
+  // Apply promo
+  let discount=0, promoApplied='';
+  const promoInput = document.getElementById('appliedPromo');
+  if(promoInput){
+    const code = promoInput.value.trim().toUpperCase();
+    const p = promos.find(p=>p.code===code);
+    if(p){discount=p.amount;promoApplied=code;}
+  }
+  const hasCustom = cart.some(c=>c.isCustom);
+  const total = hasCustom ? 'TBD' : `$${Math.max(0,subtotal-discount).toFixed(2)}`;
+
+  el.innerHTML=`
+    ${itemsHTML}
+    <div class="order-checkout-section">
+      <div style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--gray);margin-bottom:0.75rem;">PROMO CODE</div>
+      <div class="promo-row">
+        <input type="text" class="promo-input" id="appliedPromo" placeholder="ENTER CODE" style="text-transform:uppercase;">
+        <button class="promo-btn" onclick="applyPromo()">APPLY</button>
+      </div>
+      ${discount>0?`<div style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--cyan);margin-bottom:1rem;">✓ Code applied — $${discount.toFixed(2)} off</div>`:''}
+      <div class="checkout-total">
+        <span>ORDER TOTAL</span>
+        <span class="price">${total}</span>
+      </div>
+      ${hasCustom?`<div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--gray);margin-top:0.5rem;">Custom items will be priced by our team within 24 hours.</div>`:''}
+      <button class="btn-red" style="margin-top:1.25rem;" onclick="placeOrder()">PLACE ORDER →</button>
+    </div>`;
+}
+
+function removeFromCart(i){
+  cart.splice(i,1); renderOrder();
+}
+
+function applyPromo(){
+  const input = document.getElementById('appliedPromo');
+  if(!input) return;
+  const code = input.value.trim().toUpperCase();
+  const p = promos.find(p=>p.code===code);
+  if(p){showToast(`Promo code applied: -$${p.amount.toFixed(2)}`);}
+  else{showToast('Invalid promo code.','red');}
+  renderOrder();
+  // restore input value
+  setTimeout(()=>{const inp2=document.getElementById('appliedPromo');if(inp2)inp2.value=code;},10);
+}
+
+function placeOrder(){
+  if(cart.length===0) return;
+  const hasCustom=cart.some(c=>c.isCustom);
+  const id='#'+Math.random().toString(16).slice(2,8).toUpperCase();
+  let subtotal=0; cart.forEach(c=>{if(c.price)subtotal+=c.price*c.qty;});
+  const total=hasCustom?'TBD':'$'+subtotal.toFixed(2);
+  const newOrder={id,method:'Pickup',total,date:new Date().toLocaleDateString(),status:'pending',items:[...cart]};
+  myOrders.unshift(newOrder);
+  orders.unshift({id,customer:currentUser?currentUser.email:'guest@email.com',total,date:new Date().toLocaleString(),status:'pending',method:'Pickup',items:[...cart],returnPrice:null});
+  cart=[];
+  showToast('Order placed! Check My Orders for status.');
+  showPage('myorders');
+}
+
+// ===== MY ORDERS =====
+function renderMyOrders(){
+  const el=document.getElementById('myOrdersContent');
+  if(!myOrders.length){el.innerHTML='<p style="color:var(--gray);font-family:Space Mono,monospace;font-size:0.75rem;">No orders yet.</p>';return;}
+  el.innerHTML=`<div class="orders-table">
+    <div class="orders-header"><span>ORDER</span><span>METHOD</span><span>TOTAL</span><span>DATE</span><span>STATUS</span><span></span></div>
+    ${myOrders.map((o,i)=>`
+      <div class="order-row">
+        <span class="order-id-cell">${o.id}</span>
+        <span class="order-method-cell">${o.method}</span>
+        <span class="order-total-cell">${o.total}</span>
+        <span class="order-date-cell">${o.date}</span>
+        <span><span class="order-status-badge status-${o.status}">${o.status.toUpperCase()}</span></span>
+        <button class="order-expand" onclick="toggleOrderDetail('mo-detail-${i}')">▾</button>
+      </div>
+      <div class="order-detail-row" id="mo-detail-${i}">
+        <div class="od-label">ITEMS</div>
+        <div class="od-value">${(o.items||[]).map(it=>`${it.name||it.id} × ${it.qty}`).join(', ')}</div>
+      </div>
+    `).join('')}
+  </div>`;
+}
+
+function toggleOrderDetail(id){
+  const el=document.getElementById(id);
+  if(el) el.classList.toggle('open');
+}
+
+// ===== CALCULATOR =====
+function updateCalc(){
+  const w=parseInt(document.getElementById('weightSlider').value)||1;
+  document.getElementById('weightVal').textContent=w;
+  document.getElementById('sizeHintWeight').textContent=w+'g';
+  // size hint
+  let label,name;
+  if(w<=50){label='SMALL PRINT';name='Keychains, small charms';}
+  else if(w<=150){label='SMALL PRINT';name='Phone cases, small housings';}
+  else if(w<=350){label='MEDIUM PRINT';name='Figurines, desk items';}
+  else if(w<=700){label='LARGE PRINT';name='Vases, large models';}
+  else{label='EXTRA LARGE';name='Full-size models, enclosures';}
+  document.getElementById('sizeHintLabel').textContent=label;
+  document.getElementById('sizeHintName').textContent=name;
+  const matCost=w*0.03;
+  const base=1.00;
+  const total=base+matCost;
+  document.getElementById('calcPriceBig').textContent='$'+total.toFixed(2);
+  document.getElementById('matLineLabel').textContent=`Material (${w}g × $0.03/g)`;
+  document.getElementById('matLineVal').textContent='$'+matCost.toFixed(2);
+  document.getElementById('totalLineVal').textContent='$'+total.toFixed(2);
+}
+updateCalc();
+
+// Calc file upload
+function handleCalcUpload(e){
+  const f=e.target.files[0];
+  if(!f) return;
+  showToast(`${f.name} uploaded — estimating weight...`);
+  // Estimate based on file size (rough heuristic: 1KB ≈ 0.5g)
+  const estWeight = Math.min(1000,Math.max(1,Math.round(f.size/2048)));
+  document.getElementById('weightSlider').value=estWeight;
+  updateCalc();
+  showToast(`Est. weight: ${estWeight}g based on file size.`);
+}
+
+// Drag and drop
+['heroUploadDrop','calcUploadDrop'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('dragover');});
+  el.addEventListener('dragleave',()=>el.classList.remove('dragover'));
+  el.addEventListener('drop',e=>{
+    e.preventDefault(); el.classList.remove('dragover');
+    const files=e.dataTransfer.files;
+    if(!files.length) return;
+    if(id==='heroUploadDrop'){
+      const inp=document.getElementById('heroFileInput');
+      // simulate
+      showToast(`File uploaded: ${files[0].name} — DFM analysis running...`);
+      cart.push({id:'upload-'+Date.now(),name:'Uploaded File',emoji:'📂',price:null,weight:null,color:'N/A',qty:1,isCustom:true,desc:`File: ${files[0].name}`});
+    } else {
+      showToast(`${files[0].name} uploaded — estimating weight...`);
+      const estWeight=Math.min(1000,Math.max(1,Math.round(files[0].size/2048)));
+      document.getElementById('weightSlider').value=estWeight;
+      updateCalc();
+    }
+  });
+});
+
+// ===== ADMIN =====
+function switchAdminTab(btn, tabId){
+  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+function renderAdminUsers(){
+  const el=document.getElementById('adminUserList');
+  el.innerHTML=users.map(u=>`
+    <div class="user-row">
+      <div class="user-dot" style="background:${u.active?'var(--cyan)':'var(--gray)'};"></div>
+      <div class="user-info">
+        <div class="user-name">${u.name}</div>
+        <div class="user-email">${u.email}</div>
+      </div>
+      <span class="user-role">${u.role.toUpperCase()}</span>
+      <button class="deactivate-btn" onclick="toggleUser('${u.email}')">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="18" y1="8" x2="23" y2="13"/><line x1="23" y1="8" x2="18" y2="13"/></svg>
+        ${u.active?'DEACTIVATE':'ACTIVATE'}
+      </button>
+    </div>
+  `).join('');
+}
+
+function toggleUser(email){
+  const u=users.find(u=>u.email===email);
+  if(u){u.active=!u.active; renderAdminUsers(); showToast(`${u.name} ${u.active?'activated':'deactivated'}.`);}
+}
+
+function renderAdminOrders(){
+  const el=document.getElementById('adminOrdersTable');
+  el.innerHTML=`
+    <div class="ao-header"><span>ORDER</span><span>CUSTOMER</span><span>TOTAL</span><span>DATE</span><span>STATUS</span><span></span></div>
+    ${orders.map((o,i)=>`
+      <div class="ao-row">
+        <span style="color:var(--gray2);">${o.id}</span>
+        <span style="color:var(--gray2);">${o.customer}</span>
+        <span style="color:${o.total==='TBD'?'var(--cyan)':'var(--red)'};font-weight:700;">${o.total}</span>
+        <span style="color:var(--gray);">${o.date}</span>
+        <span><span class="order-status-badge status-${o.status}">${o.status.toUpperCase()}</span></span>
+        <button class="ao-expand" onclick="toggleAODetail('ao-detail-${i}')">▾</button>
+      </div>
+      <div class="ao-detail" id="ao-detail-${i}">
+        <div class="ao-detail-left">
+          <div class="od-label">CUSTOMER EMAIL</div>
+          <div class="od-value" style="margin-bottom:1rem;">${o.customer}</div>
+          <div class="od-label">PICKUP LOCATION &amp; SCHEDULE</div>
+          <div class="od-value" style="margin-bottom:1rem;">${o.method}</div>
+          <div class="od-label">ITEMS</div>
+          <div class="od-value">${(o.items||[]).map(it=>`${it.name||it.id} × ${it.qty||1}${it.desc?' <span style="color:var(--gray);font-size:0.8rem;">— '+it.desc+'</span>':''}`).join('<br>')}</div>
+          <div style="margin-top:1.25rem;">
+            <div class="od-label">UPDATE STATUS</div>
+            <div class="status-btns">
+              ${['pending','in-progress','completed','cancelled'].map(s=>`<button class="status-btn ${o.status===s?'active-status':''}" onclick="setOrderStatus(${i},'${s}')">${s.toUpperCase()}</button>`).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="ao-detail-right">
+          <div class="return-price-label">RETURN PRICE</div>
+          <div class="return-price-current">Current: ${o.returnPrice!=null?'$'+o.returnPrice.toFixed(2):'Not set'}</div>
+          <input type="number" class="return-price-input" placeholder="Enter price ($)" id="rp-${i}" step="0.01" min="0">
+          <button class="btn-cyan" style="width:100%;justify-content:center;font-size:0.65rem;padding:0.6rem;" onclick="setReturnPrice(${i})">SET PRICE</button>
+        </div>
+      </div>
+    `).join('')}`;
+}
+
+function toggleAODetail(id){
+  const el=document.getElementById(id);
+  if(el) el.classList.toggle('open');
+}
+
+function setOrderStatus(i,status){
+  orders[i].status=status;
+  // sync to myOrders
+  const mo=myOrders.find(o=>o.id===orders[i].id);
+  if(mo) mo.status=status;
+  renderAdminOrders();
+  showToast(`Order ${orders[i].id} status: ${status}`);
+}
+
+function setReturnPrice(i){
+  const inp=document.getElementById('rp-'+i);
+  const val=parseFloat(inp.value);
+  if(isNaN(val)||val<0){showToast('Enter a valid price.','red');return;}
+  orders[i].returnPrice=val;
+  orders[i].total='$'+val.toFixed(2);
+  const mo=myOrders.find(o=>o.id===orders[i].id);
+  if(mo) mo.total='$'+val.toFixed(2);
+  renderAdminOrders();
+  showToast(`Return price set: $${val.toFixed(2)}`);
+}
+
+// ===== PROMOS =====
+function createPromo(){
+  const code=document.getElementById('promoCodeInput').value.trim().toUpperCase();
+  const amount=parseFloat(document.getElementById('promoAmountInput').value)||0;
+  if(!code){showToast('Enter a promo code.','red');return;}
+  if(amount<1||amount>10){showToast('Amount must be between $1 and $10.','red');return;}
+  if(promos.find(p=>p.code===code)){showToast('Code already exists.','red');return;}
+  promos.push({code,amount});
+  document.getElementById('promoCodeInput').value='';
+  document.getElementById('promoAmountInput').value='5';
+  renderPromos();
+  showToast(`Promo code ${code} created!`);
+}
+
+function deletePromo(code){
+  promos=promos.filter(p=>p.code!==code);
+  renderPromos();
+  showToast(`Promo code ${code} deleted.`,'red');
+}
+
+function renderPromos(){
+  const el=document.getElementById('promoList');
+  if(!el) return;
+  if(promos.length===0){el.innerHTML='<div class="promo-none">NO CODES YET.</div>';return;}
+  el.innerHTML=`<div class="promo-list">${promos.map(p=>`
+    <div class="promo-row-item">
+      <span class="promo-code-name">${p.code}</span>
+      <span class="promo-code-val">-$${p.amount.toFixed(2)} off</span>
+      <button class="promo-delete-btn" onclick="deletePromo('${p.code}')">DELETE</button>
+    </div>
+  `).join('')}</div>`;
+}
+
+// ===== TOAST =====
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className=type==='red'?'show red':'show';
+  clearTimeout(t._timeout);
+  t._timeout=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+// Initial renders
+renderCatalog('all');
+updateNav();
+renderPromos();
+</script>
+</body>
+</html>
+HTMLEOF
+echo "Done: $(wc -l < /mnt/user-data/outputs/zenith-printing.html) lines"
+
